@@ -1,0 +1,6 @@
+# VM
+Vagrantfile
+.vagrant
+
+# Data
+data/*

@@ -1,0 +1,213 @@
+{
+    "a_galaxy_workflow": "true", 
+    "format-version": "0.1", 
+    "name": "cloneHD SMC-Het 2", 
+    "steps": {
+        "1": {
+            "tool_id": null, 
+            "content_id": null, 
+            "uuid": "125a12c3-a0d6-408a-850b-e0b0e3d9797d", 
+            "tool_version": null, 
+            "outputs": [], 
+            "workflow_outputs": [
+                {
+                    "output_name": "output", 
+                    "uuid": "2d290328-9665-4c8e-ae8e-316c07442e67", 
+                    "label": null
+                }
+            ], 
+            "annotation": "", 
+            "input_connections": {}, 
+            "inputs": [
+                {
+                    "description": "", 
+                    "name": "VCF_INPUT"
+                }
+            ], 
+            "tool_errors": null, 
+            "position": {
+                "top": 352, 
+                "left": 201
+            }, 
+            "tool_state": "{\"name\": \"VCF_INPUT\"}", 
+            "label": null, 
+            "type": "data_input", 
+            "id": 1, 
+            "name": "Input dataset"
+        }, 
+        "0": {
+            "tool_id": null, 
+            "content_id": null, 
+            "uuid": "747de17d-10dc-4a91-b619-a0b659a5ddac", 
+            "tool_version": null, 
+            "outputs": [], 
+            "workflow_outputs": [
+                {
+                    "output_name": "output", 
+                    "uuid": "facef286-5c0b-48a7-97d5-18b78ce6279e", 
+                    "label": null
+                }
+            ], 
+            "annotation": "", 
+            "input_connections": {}, 
+            "inputs": [
+                {
+                    "description": "", 
+                    "name": "CNA_INPUT"
+                }
+            ], 
+            "tool_errors": null, 
+            "position": {
+                "top": 268, 
+                "left": 199
+            }, 
+            "tool_state": "{\"name\": \"CNA_INPUT\"}", 
+            "label": null, 
+            "type": "data_input", 
+            "id": 0, 
+            "name": "Input dataset"
+        }, 
+        "3": {
+            "tool_id": "smc_het_eval", 
+            "content_id": "smc_het_eval", 
+            "uuid": "e17be3ef-198f-45df-b33d-8976367e40cd", 
+            "tool_version": "0.1.0", 
+            "outputs": [
+                {
+                    "type": "txt", 
+                    "name": "outfile"
+                }
+            ], 
+            "post_job_actions": {
+                "RenameDatasetActionoutfile": {
+                    "output_name": "outfile", 
+                    "action_type": "RenameDatasetAction", 
+                    "action_arguments": {
+                        "newname": "OUTPUT"
+                    }
+                }
+            }, 
+            "workflow_outputs": [
+                {
+                    "output_name": "outfile", 
+                    "uuid": "f21555e7-b66e-45f6-97d1-01ebfb59fa23", 
+                    "label": null
+                }
+            ], 
+            "annotation": "", 
+            "input_connections": {
+                "cocluster_assignment|predfile": {
+                    "output_name": "co_clustering", 
+                    "id": 2
+                }, 
+                "proportion|predfile": {
+                    "output_name": "proportions", 
+                    "id": 2
+                }, 
+                "cellularity|predfile": {
+                    "output_name": "cellularity", 
+                    "id": 2
+                }, 
+                "cluster_assignment|predfile": {
+                    "output_name": "assignments", 
+                    "id": 2
+                }, 
+                "population|predfile": {
+                    "output_name": "no_clusters", 
+                    "id": 2
+                }
+            }, 
+            "inputs": [], 
+            "tool_errors": null, 
+            "position": {
+                "top": 325, 
+                "left": 659
+            }, 
+            "tool_state": "{\"cocluster_assignment\": \"{\\\"ancestor\\\": {\\\"submit\\\": \\\"no\\\", \\\"__current_case__\\\": 1}, \\\"predfile\\\": null, \\\"submit\\\": \\\"yes\\\", \\\"__current_case__\\\": 0}\", \"__page__\": 0, \"approx\": \"{\\\"enable\\\": \\\"no\\\", \\\"__current_case__\\\": 1}\", \"__rerun_remap_job_id__\": null, \"proportion\": \"{\\\"predfile\\\": null, \\\"submit\\\": \\\"yes\\\", \\\"__current_case__\\\": 0}\", \"sample\": \"\\\"/opt/galaxy/data/Tumour1/Tumour1\\\"\", \"cellularity\": \"{\\\"predfile\\\": null, \\\"submit\\\": \\\"yes\\\", \\\"__current_case__\\\": 0}\", \"cluster_assignment\": \"{\\\"predfile\\\": null, \\\"phylogeny\\\": {\\\"submit\\\": \\\"no\\\", \\\"__current_case__\\\": 1}, \\\"submit\\\": \\\"yes\\\", \\\"__current_case__\\\": 0}\", \"population\": \"{\\\"predfile\\\": null, \\\"submit\\\": \\\"yes\\\", \\\"__current_case__\\\": 0}\"}", 
+            "label": null, 
+            "type": "tool", 
+            "id": 3, 
+            "name": "SMC-Het Evaluator"
+        }, 
+        "2": {
+            "tool_id": "cloneHD_tool", 
+            "content_id": "cloneHD_tool", 
+            "uuid": "d5151580-e271-4817-92cf-f7ebc8b47305", 
+            "tool_version": "0.1.0", 
+            "outputs": [
+                {
+                    "type": "txt", 
+                    "name": "cellularity"
+                }, 
+                {
+                    "type": "txt", 
+                    "name": "no_clusters"
+                }, 
+                {
+                    "type": "txt", 
+                    "name": "proportions"
+                }, 
+                {
+                    "type": "txt", 
+                    "name": "assignments"
+                }, 
+                {
+                    "type": "txt", 
+                    "name": "co_clustering"
+                }
+            ], 
+            "post_job_actions": {
+                "HideDatasetActionassignments": {
+                    "output_name": "assignments", 
+                    "action_type": "HideDatasetAction", 
+                    "action_arguments": {}
+                }, 
+                "HideDatasetActionco_clustering": {
+                    "output_name": "co_clustering", 
+                    "action_type": "HideDatasetAction", 
+                    "action_arguments": {}
+                }, 
+                "HideDatasetActioncellularity": {
+                    "output_name": "cellularity", 
+                    "action_type": "HideDatasetAction", 
+                    "action_arguments": {}
+                }, 
+                "HideDatasetActionno_clusters": {
+                    "output_name": "no_clusters", 
+                    "action_type": "HideDatasetAction", 
+                    "action_arguments": {}
+                }, 
+                "HideDatasetActionproportions": {
+                    "output_name": "proportions", 
+                    "action_type": "HideDatasetAction", 
+                    "action_arguments": {}
+                }
+            }, 
+            "workflow_outputs": [], 
+            "annotation": "", 
+            "input_connections": {
+                "snv_file": {
+                    "output_name": "output", 
+                    "id": 1
+                }, 
+                "cna_file": {
+                    "output_name": "output", 
+                    "id": 0
+                }
+            }, 
+            "inputs": [], 
+            "tool_errors": null, 
+            "position": {
+                "top": 298, 
+                "left": 428
+            }, 
+            "tool_state": "{\"restarts\": \"\\\"10\\\"\", \"__page__\": 0, \"trials\": \"\\\"10\\\"\", \"__rerun_remap_job_id__\": null, \"cna_file\": \"null\", \"snv_fpfreq\": \"\\\"0.07\\\"\", \"seed\": \"\\\"456\\\"\", \"snv_file\": \"null\", \"snv_fprate\": \"\\\"1.66667e-07\\\"\"}", 
+            "label": null, 
+            "type": "tool", 
+            "id": 2, 
+            "name": "cloneHD tool"
+        }
+    }, 
+    "annotation": "", 
+    "uuid": "629aa810-4699-4307-9704-26ae0ef846c7"
+}

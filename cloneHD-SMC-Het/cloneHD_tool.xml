@@ -1,0 +1,52 @@
+<?xml version="1.0" ?><tool id="cloneHD_tool" name="cloneHD tool" version="0.1.0">
+
+  <stdio>
+    <exit_code range="1:"/>
+  </stdio>
+
+  <requirements>
+    <container type="docker">docker.synapse.org/syn2813581/6187127/clonehd:smchet</container>
+  </requirements>
+
+  <command>
+<![CDATA[
+export OMP_NUM_THREADS=\${GALAXY_SLOTS:-1};
+/opt/cloneHD_tool.sh
+--sample sample
+--vcf ${snv_file}
+--cna ${cna_file}
+--trials ${trials}
+--restarts ${restarts}
+--seed ${seed}
+--snv-fpfreq ${snv_fpfreq}
+--snv-fprate ${snv_fprate}
+--output output
+]]>
+  </command>
+	
+  <inputs>
+    <param format="tabular" help="Set the CNA prior from a Battenberg file." label="CNA prior file" name="cna_file" optional="false" type="data"/>
+    <param format="vcf" help="Select the variant file in VCF format." label="Variant file" name="snv_file" type="data"/>
+    <param help="" label="The number of independent optimizations" name="trials" optional="true" type="integer" value="10"/>
+    <param help="" label="The number of perturbations in local random search mode" name="restarts" optional="true" type="integer" value="10"/>
+    <param help="" label="Seed" name="seed" optional="true" type="integer" value="123"/>
+    <param help="" label="SNV false positive freq" name="snv_fpfreq" optional="true" type="float" value="5E-2"/>
+    <param help="" label="SNV false positive rate" name="snv_fprate" optional="true" type="float" value="2.66667E-7"/>
+  </inputs>
+
+  <outputs>
+    <data format="txt" from_work_dir="sample.1A.txt" label="Cellularity (Sub Challenge 1A)" name="cellularity"/>
+    <data format="txt" from_work_dir="sample.1B.txt" label="Number Clusters (Sub Challenge 1B)" name="no_clusters"/>
+    <data format="txt" from_work_dir="sample.1C.txt" label="Cluster Proportions (Sub Challenge 1C)" name="proportions"/>
+    <data format="txt" from_work_dir="sample.2A.txt" label="Cluster Assignments (Sub Challenge 2A)" name="assignments"/>
+    <data format="txt" from_work_dir="sample.2B.txt.gz" label="Co-Cluster (Sub Challenge 2B)" name="co_clustering"/>
+  </outputs>
+	
+  <help><![CDATA[- Run cloneHD with SNVs and a CNA prior:]]>
+  
+<![CDATA[- - SNVs are called by MuTect VCFs]]>
+  
+<![CDATA[- - Segmentation for CNAs is given by Battenberg calls]]>
+  </help>
+
+</tool>
